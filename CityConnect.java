@@ -93,13 +93,13 @@ public class CityConnect {
 	 * ====================================================================
 	 */
 	public static void main(String[] args) {
-		showToUser(WELCOME);
+		System.out.println(WELCOME);
 		while (true) {
 			System.out.print("Enter command:");
 			String command = scanner.nextLine();
 			String userCommand = command;
 			String feedback = executeCommand(userCommand);
-			showToUser(feedback);
+			System.out.println(feedback);
 		}
 	}
 
@@ -111,9 +111,6 @@ public class CityConnect {
 	 * ====================================================================
 	 */
 
-	private static void showToUser(String text) {
-		System.out.println(text);
-	}
 
 	public static String executeCommand(String userCommand) {
 		if (userCommand.trim().equals(""))
