@@ -44,12 +44,12 @@ public class CityConnect {
 	 * at which java String.format(...) method can insert values.
 	 * ====================================================================
 	 */
-	private static final String MESSAGE_DISTANCE = "Distance from %1$s to %2$s is %3$s";
-	private static final String MESSAGE_NO_ROUTE = "No route exists from %1$s to %2$s!";
-	private static final String MESSAGE_ADDED = "Route from %1$s to %2$s with distance %3$skm added";
-	private static final String MESSAGE_INVALID_FORMAT = "invalid command format :%1$s";
-	private static final String WELCOME_MESSAGE = "Welcome to SimpleRouteStore!";
-	private static final String MESSAGE_NO_SPACE = "No more space to store locations";
+	private static final String DISTANCE = "Distance from %1$s to %2$s is %3$s";
+	private static final String NO_ROUTE = "No route exists from %1$s to %2$s!";
+	private static final String ADDED = "Route from %1$s to %2$s with distance %3$skm added";
+	private static final String INVALID_FORMAT = "invalid command format :%1$s";
+	private static final String WELCOME = "Welcome to SimpleRouteStore!";
+	private static final String NO_SPACE = "No more space to store locations";
 
 	// These are the possible command types
 	enum COMMAND_TYPE {
@@ -98,7 +98,7 @@ public class CityConnect {
 	 * ====================================================================
 	 */
 	public static void main(String[] args) {
-		showToUser(WELCOME_MESSAGE);
+		showToUser(WELCOME);
 		while (true) {
 			System.out.print("Enter command:");
 			String command = scanner.nextLine();
@@ -122,7 +122,7 @@ public class CityConnect {
 
 	public static String executeCommand(String userCommand) {
 		if (userCommand.trim().equals(""))
-			return String.format(MESSAGE_INVALID_FORMAT, userCommand);
+			return String.format(INVALID_FORMAT, userCommand);
 
 		String commandTypeString = getFirstWord(userCommand);
 
@@ -134,7 +134,7 @@ public class CityConnect {
 		case GET_DISTANCE:
 			return getDistance(userCommand);
 		case INVALID:
-			return String.format(MESSAGE_INVALID_FORMAT, userCommand);
+			return String.format(INVALID_FORMAT, userCommand);
 		case EXIT:
 			System.exit(0);
 		default:
@@ -192,7 +192,7 @@ public class CityConnect {
 		String[] parameters = splitParameters(removeFirstWord(userCommand));
 
 		if (parameters.length < PARAM_SIZE_FOR_GET_DISTANCE) {
-			return String.format(MESSAGE_INVALID_FORMAT, userCommand);
+			return String.format(INVALID_FORMAT, userCommand);
 		}
 
 		String newStartLocation = parameters[PARAM_POSITION_START_LOCATION];
@@ -201,12 +201,12 @@ public class CityConnect {
 		int position = getPositionOfExistingRoute(newStartLocation, newEndLocation);
 
 		if (position == NOT_FOUND) {
-			return String.format(MESSAGE_NO_ROUTE, newStartLocation,
+			return String.format(NO_ROUTE, newStartLocation,
 					newEndLocation);
 		} 
 		else 
 		{
-			return String.format(MESSAGE_DISTANCE, newStartLocation, newEndLocation,
+			return String.format(DISTANCE, newStartLocation, newEndLocation,
 					route[position][STORAGE_POSITION_DISTANCE]);
 		}
 
@@ -247,7 +247,7 @@ public class CityConnect {
 		String[] parameters = splitParameters(removeFirstWord(userCommand));
 		
 		if (parameters.length < PARAM_SIZE_FOR_ADD_ROUTE){
-			return String.format(MESSAGE_INVALID_FORMAT, userCommand);
+			return String.format(INVALID_FORMAT, userCommand);
 		}
 
 		String newStartLocation = parameters[PARAM_POSITION_START_LOCATION];
@@ -255,19 +255,19 @@ public class CityConnect {
 		String distance = parameters[PARAM_POSITION_DISTANCE];
 
 		if (!isPositiveNonZeroInt(distance)){
-			return String.format(MESSAGE_INVALID_FORMAT, userCommand);
+			return String.format(INVALID_FORMAT, userCommand);
 		}
 
 		int slotPosition = location(newStartLocation, newEndLocation);
 
 		if (slotPosition == SLOT_UNAVAILABLE){
-			return MESSAGE_NO_SPACE;
+			return NO_SPACE;
 		}
 
 		addRouteAtPosition(newStartLocation, newEndLocation, distance,
 				slotPosition);
 
-		return String.format(MESSAGE_ADDED, newStartLocation, newEndLocation,
+		return String.format(ADDED, newStartLocation, newEndLocation,
 				distance);
 	}
 
