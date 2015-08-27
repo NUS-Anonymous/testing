@@ -82,12 +82,7 @@ public class CityConnect {
 	private static final int STORAGE_POSITION_END_LOCATION = 1;
 	private static final int STORAGE_POSITION_DISTANCE = 2;
 
-	/*
-	 * This variable is declared for the whole class (instead of declaring it
-	 * inside the readUserCommand() method to facilitate automated testing using
-	 * the I/O redirection technique. If not, only the first line of the input
-	 * text file will be processed.
-	 */
+	
 	private static Scanner scanner = new Scanner(System.in);
 
 	/*
